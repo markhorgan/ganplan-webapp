@@ -1,8 +1,8 @@
-from models import Generator
+from house_gan.models import Generator
 from torch.autograd import Variable
 import torch
 import numpy as np
-from utils import bb_to_img, bb_to_vec, bb_to_seg, mask_to_bb, remove_junctions, ID_COLOR, bb_to_im_fid
+from house_gan.utils import bb_to_img, bb_to_vec, bb_to_seg, mask_to_bb, remove_junctions, ID_COLOR, bb_to_im_fid
 
 
 room_names = ['Living room', 'Kitchen', 'Bedroom', 'Bathroom', 'Missing', 'Closet', 'Balcony', 'Corridor', 'Dining room', 'Laundry room']
@@ -72,23 +72,41 @@ def generate_floorplan_files(nodes, edges, num_variations=4, use_gpu=False):
     floorplans = generate_floorplans(
         nodes_tensor, edges_tensor, num_variations=num_variations, use_gpu=use_gpu)
 
+    obj = []
+
     for i, bounding_boxes in enumerate(floorplans):
         image = bb_to_im_fid(bounding_boxes, nodes,
                              im_size=256).convert('RGBA')
-        image.save(f'output/floorplan_{i}.png')
-        generate_rhino_file(bounding_boxes[0], nodes, i)
+        image.save(f'static/imgs/floorplan_{i}.png')
+        floorplan = generate_rhino_file(bounding_boxes[0], nodes, i)
+        obj.append(floorplan)
+
+    return obj
 
 
 def generate_rhino_file(bounding_boxes, nodes, index, size=300):
     # Use rhino3dm https://github.com/mcneel/rhino3dm
     print(f'Floorplan {index + 1}')
+
+    d = {}
+    d['iteration'] = index
+    d['rooms'] = []
+
     for (x0, y0, x1, y1), node in zip(bounding_boxes, nodes):
         # Some bounding boxes are showing up as (0, 0), (0, 0) so removing them
         if x0 < 0 or y0 < 0 or x1 < 0 or y1 < 0 or (x0 == x1 and y0 == y1):
             continue
         else:
             room_name = room_names[node]
+            roomObj = {}
+            roomObj['room'] = room_name
+            roomObj['rectangle'] = (((x0 * size), (y0 * size)) , ((x1 * size),(y1 * size)))
+            d['rooms'].append(roomObj)
+            
             print(f'  {room_name}: (({x0 * size}, {y0 * size}), ({x1 * size}, {y1 * size}))')
+    
+    return d
+
 
 
 def test():
@@ -98,5 +116,5 @@ def test():
     generate_floorplan_files(nodes, edges)
 
 
-if __name__ == '__main__':
-    test()
+# if __name__ == '__main__':
+#     test()
