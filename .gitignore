@@ -2,4 +2,7 @@ output/*
 !output/.gitkeep
 
 node_modules
-.cache/
+
+.cache
+.vscode
+src/static/index.js.map

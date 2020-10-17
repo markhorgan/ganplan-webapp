@@ -29,7 +29,7 @@ import glob
 from PIL import Image, ImageDraw, ImageOps
 import matplotlib.pyplot as plt
 import random
-from utils import mask_to_bb, ROOM_CLASS 
+from house_gan.utils import mask_to_bb, ROOM_CLASS 
 sets = {'A':[1, 3], 'B':[4, 6], 'C':[7, 9], 'D':[10, 12], 'E':[13, 100]}
 
 def filter_graphs(graphs, min_h=0.03, min_w=0.03):
