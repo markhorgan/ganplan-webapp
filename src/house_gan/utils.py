@@ -55,7 +55,7 @@ CLASS_ROM = {}
 for x, y in ROOM_CLASS.items():
     CLASS_ROM[y] = x
 
-ID_COLOR = {1: 'brown', 2: 'magenta', 3: 'orange', 4: 'gray', 5: 'red', 6: 'blue', 7: 'cyan', 8: 'green', 9: 'salmon', 10: 'yellow'}
+ID_COLOR = {1: '#E32929', 2: '#A4BC26', 3: '#2B9C8D', 4: '#4D99D6', 5: '#A3A3A3', 6: '#6C34BC', 7: '#DD5498', 8: '#38CC6E', 9: '#D67827', 10: '#FFDC2B'}
 NUM_WALL_CORNERS = 13
 NUM_CORNERS = 21
 #CORNER_RANGES = {'wall': (0, 13), 'opening': (13, 17), 'icon': (17, 21)}

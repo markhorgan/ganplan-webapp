@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 export default () => {
     const testGraph = false;
     const testFloorplans = false;
-    const remoteUrl = true;
+    const remoteUrl = false;
 
-    const [nodes, setNodes] = useState(buildNodes());
-    const [links, setLinks] = useState(buildLinks());
+    const [nodes] = useState(buildNodes());
+    const [links] = useState(buildLinks());
     const [floorplanImageUrls, setFloorplanImageUrls] = useState(buildFloorplanUrls());
     const [selectedIndex, setSelectedIndex] = useState(-1);
     
