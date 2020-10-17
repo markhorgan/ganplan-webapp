@@ -3,7 +3,7 @@ import os
 import numpy as np
 import math
 
-from floorplan_dataset_maps import FloorplanGraphDataset, floorplan_collate_fn
+from house_gan.floorplan_dataset_maps import FloorplanGraphDataset, floorplan_collate_fn
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
 
@@ -16,7 +16,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 from PIL import Image, ImageDraw, ImageOps
-from utils import combine_images_maps, rectangle_renderer
+from house_gan.utils import combine_images_maps, rectangle_renderer
 import torch.nn.utils.spectral_norm as spectral_norm
 
 
