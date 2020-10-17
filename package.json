@@ -1,0 +1,18 @@
+{
+  "name": "aectech-hackathon-2020-webapp",
+  "version": "1.0.0",
+  "repository": "git@github.com:markhorgan/aectech-hackathon-2020-webapp.git",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "components": "^0.1.0",
+    "graph-editor": "^0.1.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "scripts": {
+    "build": "parcel build src/static_src/js/index.js --out-dir src/static",
+    "watch": "parcel watch src/static_src/js/index.js --out-dir src/static"
+  }
+}
