@@ -3,19 +3,8 @@ import React, { Component } from 'react'
 class GraphEditor extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {width: window.innerWidth};
         this.svgRef = React.createRef();
-
-        this.nodes = [
-            { id: 0, reflexive: false },
-            { id: 1, reflexive: true },
-            { id: 2, reflexive: false }
-        ];
-
-        this.links = [
-            { source: this.nodes[0], target: this.nodes[1], left: false, right: true },
-            { source: this.nodes[1], target: this.nodes[2], left: false, right: true }
-        ];
     }
 
     componentDidMount() {
@@ -29,17 +18,31 @@ class GraphEditor extends Component {
     createEditor() {
         // http://bl.ocks.org/rkirsling/5001347
 
+        const nodeRadius = 12;
+        const roomNames = ['Living room', 'Kitchen', 'Bedroom', 'Bathroom', 'Missing', 'Closet', 'Balcony', 'Corridor', 'Dining room', 'Laundry room'];
+        const roomData = [];
+        roomNames.forEach((roomName, i) => {
+            roomData.push({name: roomName, roomIndex:i});
+        });
+        const colors = ['#E32929', '#A4BC26', '#2B9C8D', '#4D99D6', '#A3A3A3', '#6C34BC', '#DD5498', '#38CC6E', '#D67827', '#FFDC2B'];
+
         // only respond once per keydown
         let lastKeyDown = -1;
 
-        const nodes = this.nodes;
-        const links = this.links;
-        const colors = d3.scaleOrdinal(d3.schemeCategory10);
-        
+        const nodes = this.props.nodes;
+        const links = this.props.links;
+
         const svg = d3.select(this.svgRef.current)
             .on('contextmenu', () => { 
                 d3.event.preventDefault(); 
             });
+
+        svg.append('rect')
+            .attr('width', this.state.width)
+            .attr('height', this.props.height)
+            .attr('fill', '#ffffff')
+            .on('mousedown', mousedown)
+            .on('mouseup', mouseup);
 
         // set up initial nodes and links
         //  - nodes are known by 'id', not by index in array.
@@ -52,7 +55,7 @@ class GraphEditor extends Component {
         const force = d3.forceSimulation()
             .force('link', d3.forceLink().id((d) => d.id).distance(150))
             .force('charge', d3.forceManyBody().strength(-500))
-            .force('x', d3.forceX(this.props.width / 2))
+            .force('x', d3.forceX(this.state.width / 2))
             .force('y', d3.forceY(this.props.height / 2))
             .on('tick', tick);
 
@@ -76,6 +79,40 @@ class GraphEditor extends Component {
                 d.fy = null;
             });
 
+        const menu = svg.append('g')
+            .attr('id', 'room-menu')
+            .attr('transform', `translate(${20} ${20})`);
+
+        const roomMenuItemRadius = 15;
+        const menuItemSpacing = 10;
+
+        const menuItem = menu.selectAll('g')
+            .data(roomData)
+            .enter()
+            .append('g')
+            .attr('class', 'room-menu-item')
+            .attr('transform', (d, i) => `translate(0 ${i * (roomMenuItemRadius * 2 + menuItemSpacing)})`);
+
+        menuItem.append('circle')
+            .attr('cx', roomMenuItemRadius / 2)
+            .attr('cy', roomMenuItemRadius / 2)
+            .attr('r', roomMenuItemRadius)
+            .attr('fill', d => colors[d.roomIndex])
+            .attr('stroke', d => d3.rgb(colors[d.roomIndex]).darker().toString())
+            .on('click', function(d) {
+                if (nodes.length < 10) {
+                    const node = { id: ++lastNodeId, reflexive: false, x: d3.event.pageX, y: d3.event.pageY, roomIndex:d.roomIndex};
+                    nodes.push(node);
+          
+                    restart();
+                }
+            });
+
+        menuItem.append('text')
+            .attr('x', roomMenuItemRadius * 2 + 3)
+            .attr('y', roomMenuItemRadius / 2 + 2) 
+            .text(d => d.name);           
+
         // line displayed when dragging new nodes
         const dragLine = svg.append('svg:path')
             .attr('class', 'link dragline hidden')
@@ -90,9 +127,11 @@ class GraphEditor extends Component {
         let mousedownNode = null;
         let mouseupNode = null;
 
-        svg.on('mousedown', mousedown)
+        /*svg.on('mousedown', mousedown)
             .on('mousemove', mousemove)
-            .on('mouseup', mouseup);
+            .on('mouseup', mouseup);*/
+
+        svg.on('mousemove', mousemove);
 
         d3.select(window)
             .on('keydown', keydown)
@@ -115,8 +154,8 @@ class GraphEditor extends Component {
                 const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
                 const normX = deltaX / dist;
                 const normY = deltaY / dist;
-                const sourcePadding = 12;
-                const targetPadding = 12;
+                const sourcePadding = nodeRadius;
+                const targetPadding = nodeRadius;
                 const sourceX = d.source.x + (sourcePadding * normX);
                 const sourceY = d.source.y + (sourcePadding * normY);
                 const targetX = d.target.x - (targetPadding * normX);
@@ -160,7 +199,7 @@ class GraphEditor extends Component {
     
             // update existing nodes (reflexive & selected visual states)
             circle.selectAll('circle')
-                .style('fill', (d) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
+                .style('fill', (d) => d === selectedNode ? d3.rgb(colors[d.roomIndex]).brighter().toString() : colors[d.roomIndex])
                 .classed('reflexive', (d) => d.reflexive);
     
             // remove old nodes
@@ -172,8 +211,8 @@ class GraphEditor extends Component {
             g.append('svg:circle')
                 .attr('class', 'node')
                 .attr('r', 12)
-                .style('fill', (d) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
-                .style('stroke', (d) => d3.rgb(colors(d.id)).darker().toString())
+                .style('fill', (d) => d === selectedNode ? d3.rgb(colors[d.roomIndex]).brighter().toString() : colors[d.roomIndex])
+                .style('stroke', (d) => d3.rgb(colors[d.roomIndex]).darker().toString())
                 .classed('reflexive', (d) => d.reflexive)
                 .on('mouseover', function (d) {
                     if (!mousedownNode || d === mousedownNode) return;
@@ -239,10 +278,10 @@ class GraphEditor extends Component {
     
             // show node IDs
             g.append('svg:text')
-                .attr('x', 0)
-                .attr('y', 4)
+                .attr('x', 15)
+                .attr('y', 2)
                 .attr('class', 'id')
-                .text((d) => d.id);
+                .text((d) => roomNames[d.roomIndex]);
     
             circle = g.merge(circle);
     
@@ -259,13 +298,19 @@ class GraphEditor extends Component {
             svg.classed('active', true);
           
             if (d3.event.ctrlKey || mousedownNode || mousedownLink) return;
+
+            const coordinates = d3.mouse(this);
+
+            d3.select('#menu')
+                .attr('transform', `translate(${coordinates[0]} ${coordinates[1]})`)
+                .attr('style', 'display: block');
           
             // insert new node at point
-            const point = d3.mouse(this);
+            /*const point = d3.mouse(this);
             const node = { id: ++lastNodeId, reflexive: false, x: point[0], y: point[1] };
             nodes.push(node);
           
-            restart();
+            restart();*/
         }
     
         function mousemove() {
@@ -371,7 +416,7 @@ class GraphEditor extends Component {
     }
 
     render() {
-        return <svg ref={this.svgRef} width={this.props.width} height={this.props.height}/>
+        return <svg ref={this.svgRef} width={this.state.width} height={this.props.height}/>
     }
 }
 

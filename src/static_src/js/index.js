@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import GraphEditor from "./components/graph-editor";
+import App from "./app";
 
-ReactDOM.render(<GraphEditor width="960" height="500"/>, document.getElementById("root"));
+ReactDOM.render(<App/>, document.getElementById("root"));

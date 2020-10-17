@@ -7,6 +7,7 @@ from utils import bb_to_img, bb_to_vec, bb_to_seg, mask_to_bb, remove_junctions,
 
 room_names = ['Living room', 'Kitchen', 'Bedroom', 'Bathroom', 'Missing', 'Closet', 'Balcony', 'Corridor', 'Dining room', 'Laundry room']
 
+
 def build_nodes_tensor(nodes):
     rows = []
     for node in nodes:

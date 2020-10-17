@@ -1,0 +1,7 @@
+{
+    "src": "./src/static_src",
+    "dest": "./src/static",
+    "js": {
+        "mainFile": "index.js"
+    }
+}

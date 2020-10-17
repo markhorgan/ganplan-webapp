@@ -1,12 +1,12 @@
 svg {
-    background-color: #FFF;
-    cursor: default;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-  }
+  background-color: #FFF;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
   
   svg:not(.active):not(.ctrl) {
     cursor: crosshair;
@@ -14,7 +14,7 @@ svg {
   
   path.link {
     fill: none;
-    stroke: #000;
+    stroke: #666;
     stroke-width: 4px;
     cursor: default;
   }
@@ -51,6 +51,18 @@ svg {
   }
   
   text.id {
-    text-anchor: middle;
-    font-weight: bold;
+    text-anchor: start;
+    //font-weight: bold;
+  }
+
+  .room-menu-item {
+    circle {
+      stroke-width: 2px;
+      cursor: pointer;
+    }
+
+    text {
+      stroke: none;
+      fill: #000;
+    }
   }

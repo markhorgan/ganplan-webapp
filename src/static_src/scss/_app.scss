@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.button-outer {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    $background-color: rgb(60, 90, 190);
+
+    margin-top: 20px;
+    padding: 20px;
+    background-color: $background-color;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    outline: none;
+
+    &:hover {
+        background-color: darken($background-color, 8%);
+    }
+}
+
+.floorplans {
+    margin: {
+        top: 50px;
+        left: 20px;
+        right: 20px;
+    }    
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+
+    a {
+        display: block;
+        border: 15px solid rgba(0, 0, 0, 0);
+
+        &:hover {
+            border-color: rgba(230, 51, 51, 0.4);
+        }
+
+        &.selected {
+            border-color: rgb(230, 51, 51);
+        }
+    }
+
+    img {
+        padding: 10px;
+    }
+}
