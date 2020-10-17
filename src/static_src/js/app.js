@@ -46,6 +46,15 @@ export default () => {
         }
     }
 
+    deleteFloorplans();
+    
+    function deleteFloorplans() {
+        fetch(`${urlPrefix}/api/floorplans`, {
+            headers: headers,
+            method: 'DELETE'
+        });
+    }
+
     function generateFloorplans() {
         const tNodes = nodes.map(node => node.roomIndex);
         const tLinks = links.map(link => [link.source.index, link.target.index]);

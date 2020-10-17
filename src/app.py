@@ -11,7 +11,7 @@ CORS(app)
 def index():
     return render_template('index.html')
 
-@app.route('/api/floorplans/reset', methods=['GET'])
+@app.route('/api/floorplans', methods=['DELETE'])
         
 def resetSelectedFloorplan():
 
