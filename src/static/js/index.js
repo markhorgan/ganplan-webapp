@@ -28459,10 +28459,11 @@ var GraphEditor = /*#__PURE__*/function (_Component) {
       menuItem.append('text').attr('x', roomMenuItemRadius * 2 + 3).attr('y', roomMenuItemRadius / 2 + 2).text(function (d) {
         return d.name;
       });
-      svg.append('text').attr('id', 'num-rooms').attr('x', 50).attr('y', this.props.height - 15).text(getNumRoomsText());
+      var x = 54;
+      svg.append('text').attr('id', 'num-rooms').attr('x', x).attr('y', this.props.height - 15).text(getNumRoomsText());
       var buttonWidth = 100;
       var buttonHeight = 30;
-      var g = svg.append('g').attr('id', 'reset-button').attr('transform', "translate(50 ".concat(this.props.height - 70, ")"));
+      var g = svg.append('g').attr('id', 'reset-button').attr('transform', "translate(".concat(x, " ").concat(this.props.height - 70, ")"));
       g.append('rect').attr('width', buttonWidth).attr('height', buttonHeight).attr('rx', '4').on('click', function () {
         nodes.splice(0, nodes.length);
         props.setNodesLength(nodes.length);

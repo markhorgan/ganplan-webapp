@@ -122,10 +122,12 @@ class GraphEditor extends Component {
             .attr('x', roomMenuItemRadius * 2 + 3)
             .attr('y', roomMenuItemRadius / 2 + 2) 
             .text(d => d.name);   
-            
+
+        const x = 54;
+
         svg.append('text')
             .attr('id', 'num-rooms')
-            .attr('x', 50)
+            .attr('x', x)
             .attr('y', this.props.height-15)
             .text(getNumRoomsText())
 
@@ -134,7 +136,7 @@ class GraphEditor extends Component {
 
         const g = svg.append('g')
             .attr('id', 'reset-button')
-            .attr('transform', `translate(50 ${this.props.height-70})`);
+            .attr('transform', `translate(${x} ${this.props.height-70})`);
 
         g.append('rect')
             .attr('width', buttonWidth)
