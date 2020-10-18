@@ -11,7 +11,7 @@ export default () => {
     const [floorplanImageUrls, setFloorplanImageUrls] = useState(buildFloorplanUrls());
     const [selectedIndex, setSelectedIndex] = useState(-1);
     
-    const urlPrefix = remoteUrl ? 'https://optimus.emptybox.io' : '';
+    const urlPrefix = remoteUrl ? 'https://ganplan.emptybox.io' : '';
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -80,6 +80,7 @@ export default () => {
 
     return (
         <div>
+            <h2>Gan Plan</h2>
             <GraphEditor height="500" nodes={nodes} links={links}/>
             <div className="button-outer">
                 <button className="button" onClick={generateFloorplans}>Generate Floorplans</button>
