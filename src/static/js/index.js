@@ -28960,9 +28960,15 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "reset",
     value: function reset() {
+      var _this3 = this;
+
       fetch("".concat(this.urlPrefix, "/api/floorplans"), {
         headers: this.headers,
         method: 'DELETE'
+      }).then(function (response) {
+        _this3.setState({
+          floorplanImageUrls: []
+        });
       });
     }
   }, {
@@ -28973,7 +28979,7 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "generateFloorplans",
     value: function generateFloorplans() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.nodes.length < 10) {
         window.alert("10 rooms are required to generate floorplans.");
@@ -28995,16 +29001,16 @@ var App = /*#__PURE__*/function (_Component) {
             edges: tLinks
           })
         }).then(function (response) {
-          _this3.setState({
+          _this4.setState({
             spinnerVisible: false
           });
 
           if (response.ok) {
             response.json().then(function (data) {
-              _this3.setState({
+              _this4.setState({
                 selectedIndex: -1,
                 floorplanImageUrls: data['data'].map(function (url) {
-                  return "".concat(_this3.urlPrefix).concat(url);
+                  return "".concat(_this4.urlPrefix).concat(url);
                 })
               });
             });
@@ -29017,7 +29023,7 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "selectFloorplan",
     value: function selectFloorplan(index) {
-      var _this4 = this;
+      var _this5 = this;
 
       fetch("".concat(this.urlPrefix, "/api/floorplans/select"), {
         headers: this.headers,
@@ -29027,7 +29033,7 @@ var App = /*#__PURE__*/function (_Component) {
         })
       }).then(function (response) {
         if (response.ok) {
-          _this4.setState({
+          _this5.setState({
             selectedIndex: index
           });
         } else {
@@ -29060,7 +29066,7 @@ var App = /*#__PURE__*/function (_Component) {
       }, "Generate Floorplans")), /*#__PURE__*/_react.default.createElement("ul", {
         className: "floorplans"
       }, this.state.floorplanImageUrls.map(function (url, index) {
-        var _this5 = this;
+        var _this6 = this;
 
         return /*#__PURE__*/_react.default.createElement("li", {
           key: url
@@ -29068,7 +29074,7 @@ var App = /*#__PURE__*/function (_Component) {
           className: index === this.state.selectedIndex ? 'selected' : '',
           href: "javascript:;",
           onClick: function onClick() {
-            return _this5.selectFloorplan(index);
+            return _this6.selectFloorplan(index);
           }
         }, /*#__PURE__*/_react.default.createElement("img", {
           src: url

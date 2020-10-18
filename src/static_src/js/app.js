@@ -62,6 +62,8 @@ class App extends Component {
         fetch(`${this.urlPrefix}/api/floorplans`, {
             headers: this.headers,
             method: 'DELETE'
+        }).then(response => {
+            this.setState({floorplanImageUrls: []});
         });
     }
 
