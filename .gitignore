@@ -6,8 +6,8 @@ node_modules
 .cache
 .vscode
 src/static/index.js.map
-src/static/imgs/*
-!src/static/imgs/.gitkeep
+src/static/imgs/generated/*
+!src/static/imgs/generated/.gitkeep
 src/temp/*
 !src/temp/.gitkeep
 src/static/selected/*

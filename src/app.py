@@ -2,6 +2,7 @@
 
 from flask import Flask,render_template,request,jsonify
 from flask_cors import CORS
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -36,13 +37,13 @@ def getFloorplans():
     import os
     import glob
 
-    files = glob.glob('./static/imgs/.*')
+    files = glob.glob('./static/imgs/generated/.*')
     print("files", files)
 
     for f in files:
         os.remove(f)
 
-    files = glob.glob('./static/imgs/.*')
+    files = glob.glob('./static/imgs/generated/.*')
     print("files-2", files)
     request_data = request.get_json()
 
@@ -57,9 +58,11 @@ def getFloorplans():
 
     imgURLS = []
 
+    # adding parameter for cache busting
+    t = int(round(time.time() * 1000))
     for i,d in enumerate(response):
         index = d['iteration']
-        url = f'/static/imgs/floorplan_{index}.png'
+        url = f'/static/imgs/generated/floorplan_{index}.png?t={t}'
         imgURLS.append(url)
 
     # return png urls

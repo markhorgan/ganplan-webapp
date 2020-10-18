@@ -78,7 +78,7 @@ def generate_floorplan_files(nodes, edges, num_variations=10, use_gpu=False):
     for i, bounding_boxes in enumerate(floorplans):
         image = bb_to_im_fid(bounding_boxes, nodes,
                              im_size=256).convert('RGBA')
-        image.save(f'static/imgs/floorplan_{i}.png')
+        image.save(f'static/imgs/generated/floorplan_{i}.png')
         floorplan = generate_rhino_file(bounding_boxes[0], nodes, i)
         obj.append(floorplan)
 
