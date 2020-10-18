@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .button-outer {
@@ -33,7 +34,9 @@ body {
         top: 50px;
         left: 20px;
         right: 20px;
-    }    
+    }
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     justify-content: space-between;
     list-style: none;
