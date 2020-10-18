@@ -93,6 +93,19 @@ def generate_rhino_file(bounding_boxes, nodes, index, size=300):
     d['iteration'] = index
     d['rooms'] = []
 
+    colorDict = {
+        'Living room':'#E32929',
+        'Kitchen': '#A4BC26',
+        'Bedroom': '#2B9C8D',
+        'Bathroom': '#4D99D6',
+        'Missing': '#A3A3A3',
+        'Closet': '#6C34BC',
+        'Balcony':  '#DD5498',
+        'Corridor': '#38CC6E',
+        'Dining room': '#D67827',
+        'Laundry room':'#FFDC2B'
+    }
+
     for (x0, y0, x1, y1), node in zip(bounding_boxes, nodes):
         # Some bounding boxes are showing up as (0, 0), (0, 0) so removing them
         if x0 < 0 or y0 < 0 or x1 < 0 or y1 < 0 or (x0 == x1 and y0 == y1):
@@ -101,6 +114,7 @@ def generate_rhino_file(bounding_boxes, nodes, index, size=300):
             room_name = room_names[node]
             roomObj = {}
             roomObj['room'] = room_name
+            roomObj['roomColor'] = colorDict[room_name]
             roomObj['rectangle'] = (((x0 * size), (y0 * size)) , ((x1 * size),(y1 * size)))
             d['rooms'].append(roomObj)
             
