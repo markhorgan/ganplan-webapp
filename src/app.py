@@ -37,13 +37,13 @@ def getFloorplans():
     import os
     import glob
 
-    files = glob.glob('./static/imgs/generated/.*')
+    files = glob.glob('./static/imgs/generated/*.png')
     print("files", files)
 
     for f in files:
         os.remove(f)
 
-    files = glob.glob('./static/imgs/generated/.*')
+    files = glob.glob('./static/imgs/generated/*.png')
     print("files-2", files)
     request_data = request.get_json()
 
