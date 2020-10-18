@@ -407,12 +407,38 @@ class GraphEditor extends Component {
               svg.classed('ctrl', true);
               return;
             }
+
+            switch (d3.event.keyCode) {
+                case 71: // G
+                    let tNodes = [];
+                    for (let i = 0; i < 10; i++) {
+                        let room = null;
+                        do {
+                            room = Math.floor(Math.random() * 10);
+                        } while (room == 4);
+                        tNodes.push(room);
+                    }
+                    tNodes = tNodes.map((node, index) => {return {id: index, reflexive: false, roomIndex: node}});
+                    nodes.splice(0, nodes.length, ...tNodes);
+                    props.setNodesLength(nodes.length);
+                    updateNumRoomsText();
+
+                    let tLinks = [];
+                    for (let i = 0; i < 10; i++) {
+                        const b = i + 1 < 10 ? i + 1 : 0;
+                        tLinks.push([i, b]);
+                    }                    
+                    tLinks = tLinks.map(link => {return {source: nodes[link[0]], target: nodes[link[1]], left: false, right: true}});
+                    links.splice(0, links.length, ...tLinks);
+
+                    restart();
+                    break;
+            }
           
             if (!selectedNode && !selectedLink) return;
           
             switch (d3.event.keyCode) {
               case 8: // backspace
-    
               case 46: // delete
                 if (selectedNode) {
                   nodes.splice(nodes.indexOf(selectedNode), 1);
