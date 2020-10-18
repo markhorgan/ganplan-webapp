@@ -1,3 +1,7 @@
+# Gan Plan
+
+This is a web implmentation of [HouseGan](https://github.com/ennauata/housegan) where you can create a graph of rooms that describes what rooms are connected. It will then generate a variation of floor plans based on plans it has been trained with. It is designed to be used with this [Rhino plugin](https://github.com/demidimi/ganplanrhino) so you can modify the plan in Rhino. This project was developed during the [AEC Tech 2020 Hackathon](https://www.aectech.us/) by [Mark Horgan](https://github.com/markhorgan), [Brandom Pachua](https://github.com/EmptyBox-Design), [Demi Chang](https://github.com/demidimi), [Leland Curtis](https://github.com/LelandCurtis), and [Matthew Breau](https://github.com/anddoyoueverfeel).  
+
 ## Setup
 
 Requires Python 3 and Node to be installed.
@@ -19,15 +23,10 @@ Requires Python 3 and Node to be installed.
 
     npm install
 
-## Running House GAN Test
-
-    python src/house_gan/house_gan.py
-
-Floorplan images will be outputting to the output folder.
-
 ## Start Server
 
-    python src/app.py
+    cd src
+    python app.py
 
 ## To build JS and CSS
 
