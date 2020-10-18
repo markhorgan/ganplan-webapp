@@ -34,5 +34,7 @@ gulp.task('watch-scss', function() {
     gulp.watch(`${config.src}/scss/**/*.scss`, gulp.series('scss'));
 });
 
+gulp.task('build', gulp.series(['scss', 'js']));
+
 gulp.task('default', gulp.series('watch'));
 

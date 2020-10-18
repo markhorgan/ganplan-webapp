@@ -31,6 +31,7 @@ Cython = "==0.29.21"
 Pillow = "==7.2.0"
 PyWavelets = "==1.1.1"
 flask = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"

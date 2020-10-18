@@ -3,6 +3,7 @@ cycler==0.10.0
 Cython==0.29.21
 decorator==4.4.2
 Flask==1.1.2
+Flask-Cors==3.0.9
 future==0.18.2
 imageio==2.9.0
 itsdangerous==1.1.0

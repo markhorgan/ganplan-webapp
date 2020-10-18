@@ -6,8 +6,8 @@ export default () => {
     const testFloorplans = false;
     const remoteUrl = true;
 
-    const [nodes, setNodes] = useState(buildNodes());
-    const [links, setLinks] = useState(buildLinks());
+    const [nodes] = useState(buildNodes());
+    const [links] = useState(buildLinks());
     const [floorplanImageUrls, setFloorplanImageUrls] = useState(buildFloorplanUrls());
     const [selectedIndex, setSelectedIndex] = useState(-1);
     
@@ -44,6 +44,15 @@ export default () => {
         } else {
             return [];
         }
+    }
+
+    deleteFloorplans();
+    
+    function deleteFloorplans() {
+        fetch(`${urlPrefix}/api/floorplans`, {
+            headers: headers,
+            method: 'DELETE'
+        });
     }
 
     function generateFloorplans() {
