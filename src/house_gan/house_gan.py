@@ -66,7 +66,7 @@ def generate_floorplans(nodes, edges, num_variations=4, use_gpu=False):
     return floorplans
 
 
-def generate_floorplan_files(nodes, edges, num_variations=4, use_gpu=False):
+def generate_floorplan_files(nodes, edges, num_variations=10, use_gpu=False):
     nodes_tensor = build_nodes_tensor(nodes)
     edges_tensor = build_edges_tensor(edges)
 
@@ -129,7 +129,3 @@ def test():
     edges = [[0, 1], [0, 3], [0, 4], [1, 2], [1, 4], [2, 4], [2, 5], [2, 6], [2, 7], [
         3, 4], [3, 5], [4, 5], [5, 7], [5, 8], [5, 9], [6, 7], [6, 8], [6, 9], [7, 8], [8, 9]]
     generate_floorplan_files(nodes, edges)
-
-
-# if __name__ == '__main__':
-#     test()
