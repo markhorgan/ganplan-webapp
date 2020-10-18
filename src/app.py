@@ -30,7 +30,20 @@ def getFloorplans():
 
     from house_gan.house_gan import generate_floorplan_files
     import json
+    
+    # delete old imgs in directory before generating new ones
+    # might be redundent since new ones should overrwrite the old ones
+    import os
+    import glob
 
+    files = glob.glob('./static/imgs/.*')
+    print("files", files)
+
+    for f in files:
+        os.remove(f)
+
+    files = glob.glob('./static/imgs/.*')
+    print("files-2", files)
     request_data = request.get_json()
 
     nodes = request_data['nodes']
