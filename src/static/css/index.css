@@ -106,7 +106,8 @@ text {
   pointer-events: none; }
 
 text.id {
-  text-anchor: start; }
+  text-anchor: start;
+  fill: #333; }
 
 .room-menu-item circle {
   stroke-width: 2px;
@@ -114,11 +115,12 @@ text.id {
 
 .room-menu-item text {
   stroke: none;
-  fill: #000; }
+  fill: #333; }
 
 #num-rooms {
   font-size: 14px;
-  font-weight: bold; }
+  font-weight: bold;
+  fill: #333; }
 
 #reset-button rect {
   fill: #3c5abe;

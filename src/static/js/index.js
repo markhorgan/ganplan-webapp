@@ -28444,19 +28444,17 @@ var GraphEditor = /*#__PURE__*/function (_Component) {
       }).attr('stroke', function (d) {
         return d3.rgb(colors[d.roomIndex]).darker().toString();
       }).on('click', function (d) {
-        if (nodes.length < 10) {
-          var node = {
-            id: ++lastNodeId,
-            reflexive: false,
-            x: d3.event.pageX,
-            y: d3.event.pageY,
-            roomIndex: d.roomIndex
-          };
-          nodes.push(node);
-          props.setNodesLength(nodes.length);
-          restart();
-          updateNumRoomsText();
-        }
+        var node = {
+          id: ++lastNodeId,
+          reflexive: false,
+          x: d3.event.pageX,
+          y: d3.event.pageY,
+          roomIndex: d.roomIndex
+        };
+        nodes.push(node);
+        props.setNodesLength(nodes.length);
+        restart();
+        updateNumRoomsText();
       });
       menuItem.append('text').attr('x', roomMenuItemRadius * 2 + 3).attr('y', roomMenuItemRadius / 2 + 2).text(function (d) {
         return d.name;
@@ -28499,7 +28497,7 @@ var GraphEditor = /*#__PURE__*/function (_Component) {
         }
 
         if (nodes.length < 10) {
-          text += ' (requires 10 rooms)';
+          text += ' (requires at least 10 rooms)';
         }
 
         return text;
@@ -28636,7 +28634,7 @@ var GraphEditor = /*#__PURE__*/function (_Component) {
           restart();
         }); // show node IDs
 
-        g.append('svg:text').attr('x', 15).attr('y', 2).attr('class', 'id').text(function (d) {
+        g.append('svg:text').attr('x', 15).attr('y', 3).attr('class', 'id').text(function (d) {
           return roomNames[d.roomIndex];
         });
         circle = g.merge(circle); // set the graph in motion

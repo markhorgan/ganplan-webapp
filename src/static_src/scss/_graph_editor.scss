@@ -53,6 +53,7 @@ svg {
   text.id {
     text-anchor: start;
     //font-weight: bold;
+    fill: #333;
   }
 
   .room-menu-item {
@@ -63,13 +64,14 @@ svg {
 
     text {
       stroke: none;
-      fill: #000;
+      fill: #333;
     }
   }
 
   #num-rooms {
     font-size: 14px;
     font-weight: bold;
+    fill: #333;
   }
 
   #reset-button {

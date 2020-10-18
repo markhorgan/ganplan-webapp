@@ -56,7 +56,7 @@ def generate_floorplans(nodes, edges, num_variations=4, use_gpu=False):
 
     floorplans = []
     for i in range(num_variations):
-        z = Variable(Tensor(np.random.normal(0, 1, (10, latent_dim))))
+        z = Variable(Tensor(np.random.normal(0, 1, (nodes.shape[0], latent_dim))))
         with torch.no_grad():
             gen_mks = generator(z, nodes, edges)
             gen_bbs = np.array([np.array(mask_to_bb(mk))

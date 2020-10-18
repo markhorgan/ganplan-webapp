@@ -110,14 +110,12 @@ class GraphEditor extends Component {
             .attr('fill', d => colors[d.roomIndex])
             .attr('stroke', d => d3.rgb(colors[d.roomIndex]).darker().toString())
             .on('click', function (d) {
-                if (nodes.length < 10) {
-                    const node = { id: ++lastNodeId, reflexive: false, x: d3.event.pageX, y: d3.event.pageY, roomIndex:d.roomIndex};
-                    nodes.push(node);
-                    props.setNodesLength(nodes.length);
-            
-                    restart();
-                    updateNumRoomsText();
-                }
+                const node = { id: ++lastNodeId, reflexive: false, x: d3.event.pageX, y: d3.event.pageY, roomIndex:d.roomIndex};
+                nodes.push(node);
+                props.setNodesLength(nodes.length);
+        
+                restart();
+                updateNumRoomsText();
             });
 
         menuItem.append('text')
@@ -188,7 +186,7 @@ class GraphEditor extends Component {
                 text += 's';
             }
             if (nodes.length < 10) {
-                text += ' (requires 10 rooms)' 
+                text += ' (requires at least 10 rooms)' 
             }
             return text;
         }
@@ -338,7 +336,7 @@ class GraphEditor extends Component {
             // show node IDs
             g.append('svg:text')
                 .attr('x', 15)
-                .attr('y', 2)
+                .attr('y', 3)
                 .attr('class', 'id')
                 .text((d) => roomNames[d.roomIndex]);
     
