@@ -81,7 +81,7 @@ export default () => {
     return (
         <div>
             <h2>Gan Plan</h2>
-            <GraphEditor height="500" nodes={nodes} links={links}/>
+            <GraphEditor height="450" nodes={nodes} links={links}/>
             <div className="button-outer">
                 <button className="button" onClick={generateFloorplans}>Generate Floorplans</button>
             </div>
