@@ -8,9 +8,9 @@ svg {
   user-select: none;
 }
   
-  svg:not(.active):not(.ctrl) {
+  /*svg:not(.active):not(.ctrl) {
     cursor: crosshair;
-  }
+  }*/
   
   path.link {
     fill: none;
@@ -64,5 +64,22 @@ svg {
     text {
       stroke: none;
       fill: #000;
+    }
+  }
+
+  #num-rooms {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  #reset-button {
+    rect {
+      fill: rgb(60, 90, 190);
+      cursor: pointer;
+    }
+
+    text {
+      fill: #fff;
+      text-anchor: middle;
     }
   }

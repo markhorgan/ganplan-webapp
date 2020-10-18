@@ -12,23 +12,34 @@ class GraphEditor extends Component {
     }
 
     componentDidUpdate() {
-        this.createEditor();
+        //this.createEditor();
     }
 
     createEditor() {
         // http://bl.ocks.org/rkirsling/5001347
 
         const nodeRadius = 12;
-        const roomNames = ['Living room', 'Kitchen', 'Bedroom', 'Bathroom', 'Missing', 'Closet', 'Balcony', 'Corridor', 'Dining room', 'Laundry room'];
-        const roomData = [];
-        roomNames.forEach((roomName, i) => {
-            roomData.push({name: roomName, roomIndex:i});
+        const roomData = [
+            {name: 'Living room', roomIndex: 0},
+            {name: 'Kitchen', roomIndex: 1},
+            {name: 'Bedroom', roomIndex: 2},
+            {name: 'Bathroom', roomIndex: 3},
+            {name: 'Closet', roomIndex: 5},
+            {name: 'Balcony', roomIndex: 6},
+            {name: 'Corridor', roomIndex: 7},
+            {name: 'Dining room', roomIndex: 8},
+            {name: 'Laundry room', roomIndex: 9}
+        ];
+        const roomNames = [];
+        roomData.forEach(room => {
+            roomNames[room.roomIndex] = room.name;
         });
         const colors = ['#E32929', '#A4BC26', '#2B9C8D', '#4D99D6', '#A3A3A3', '#6C34BC', '#DD5498', '#38CC6E', '#D67827', '#FFDC2B'];
 
         // only respond once per keydown
         let lastKeyDown = -1;
 
+        const props = this.props;
         const nodes = this.props.nodes;
         const links = this.props.links;
 
@@ -41,7 +52,6 @@ class GraphEditor extends Component {
             .attr('width', this.state.width)
             .attr('height', this.props.height)
             .attr('fill', '#ffffff')
-            .on('mousedown', mousedown)
             .on('mouseup', mouseup);
 
         // set up initial nodes and links
@@ -81,7 +91,7 @@ class GraphEditor extends Component {
 
         const menu = svg.append('g')
             .attr('id', 'room-menu')
-            .attr('transform', `translate(${20} ${20})`);
+            .attr('transform', `translate(${20} ${10})`);
 
         const roomMenuItemRadius = 15;
         const menuItemSpacing = 10;
@@ -99,19 +109,52 @@ class GraphEditor extends Component {
             .attr('r', roomMenuItemRadius)
             .attr('fill', d => colors[d.roomIndex])
             .attr('stroke', d => d3.rgb(colors[d.roomIndex]).darker().toString())
-            .on('click', function(d) {
+            .on('click', function (d) {
                 if (nodes.length < 10) {
                     const node = { id: ++lastNodeId, reflexive: false, x: d3.event.pageX, y: d3.event.pageY, roomIndex:d.roomIndex};
                     nodes.push(node);
-          
+                    props.setNodesLength(nodes.length);
+            
                     restart();
+                    updateNumRoomsText();
                 }
             });
 
         menuItem.append('text')
             .attr('x', roomMenuItemRadius * 2 + 3)
             .attr('y', roomMenuItemRadius / 2 + 2) 
-            .text(d => d.name);           
+            .text(d => d.name);   
+            
+        svg.append('text')
+            .attr('id', 'num-rooms')
+            .attr('x', 50)
+            .attr('y', this.props.height-15)
+            .text(getNumRoomsText())
+
+        const buttonWidth = 100;
+        const buttonHeight = 30;
+
+        const g = svg.append('g')
+            .attr('id', 'reset-button')
+            .attr('transform', `translate(50 ${this.props.height-70})`);
+
+        g.append('rect')
+            .attr('width', buttonWidth)
+            .attr('height', buttonHeight)
+            .attr('rx', '4')
+            .on('click', function() {
+                nodes.splice(0, nodes.length);
+                props.setNodesLength(nodes.length);
+                links.splice(0, links.length);
+                updateNumRoomsText();
+                restart();
+                props.reset();
+            });
+
+        g.append('text')
+            .attr('x', buttonWidth / 2)
+            .attr('y', buttonHeight / 2 + 4)
+            .text('Reset')
 
         // line displayed when dragging new nodes
         const dragLine = svg.append('svg:path')
@@ -138,6 +181,22 @@ class GraphEditor extends Component {
             .on('keyup', keyup);
             
         restart();
+
+        function getNumRoomsText() {
+            let text = `${nodes.length} room`;
+            if (nodes.length != 1) {
+                text += 's';
+            }
+            if (nodes.length < 10) {
+                text += ' (requires 10 rooms)' 
+            }
+            return text;
+        }
+
+        function updateNumRoomsText() {
+            svg.select('#num-rooms')
+                .text(getNumRoomsText());
+        }
 
         function resetMouseVars() {
             mousedownNode = null;
@@ -293,25 +352,19 @@ class GraphEditor extends Component {
             force.alphaTarget(0.3).restart();
         }
     
-        function mousedown() {
+        /*function mousedown() {
             // because :active only works in WebKit?
             svg.classed('active', true);
           
             if (d3.event.ctrlKey || mousedownNode || mousedownLink) return;
-
-            const coordinates = d3.mouse(this);
-
-            d3.select('#menu')
-                .attr('transform', `translate(${coordinates[0]} ${coordinates[1]})`)
-                .attr('style', 'display: block');
           
             // insert new node at point
             /*const point = d3.mouse(this);
             const node = { id: ++lastNodeId, reflexive: false, x: point[0], y: point[1] };
             nodes.push(node);
           
-            restart();*/
-        }
+            restart();
+        }*/
     
         function mousemove() {
             if (!mousedownNode) return;
@@ -363,7 +416,9 @@ class GraphEditor extends Component {
               case 46: // delete
                 if (selectedNode) {
                   nodes.splice(nodes.indexOf(selectedNode), 1);
+                  props.setNodesLength(nodes.length);
                   spliceLinksForNode(selectedNode);
+                  updateNumRoomsText();
                 } else if (selectedLink) {
                   links.splice(links.indexOf(selectedLink), 1);
                 }

@@ -28,3 +28,11 @@ Floorplan images will be outputting to the output folder.
 ## Start Server
 
     python src/app.py
+
+## To build JS and CSS
+
+    gulp build
+
+While developing run the following and the browser should update when you edit JS or SCSS:
+
+    gulp watch

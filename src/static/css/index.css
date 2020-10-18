@@ -1,6 +1,14 @@
 body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  overflow-x: hidden; }
+
+h1 {
+  margin-top: 20px;
+  font-size: 30px;
+  text-align: center;
+  font-family: sans-serif;
+  color: #243f99; }
 
 .button-outer {
   display: flex;
@@ -17,14 +25,20 @@ body {
   cursor: pointer;
   border-radius: 6px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-  outline: none; }
+  outline: none;
+  transition: background-color 200ms ease-in; }
   .button:hover {
     background-color: #324b9f; }
+  .button[disabled] {
+    background-color: #ccc;
+    color: #eee; }
 
 .floorplans {
-  margin-top: 60px;
+  margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
   display: flex;
   justify-content: space-between;
   list-style: none; }
@@ -38,6 +52,16 @@ body {
   .floorplans img {
     padding: 10px; }
 
+#spinner {
+  /*padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);*/
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
 svg {
   background-color: #FFF;
   cursor: default;
@@ -47,9 +71,9 @@ svg {
   -o-user-select: none;
   user-select: none; }
 
-svg:not(.active):not(.ctrl) {
-  cursor: crosshair; }
-
+/*svg:not(.active):not(.ctrl) {
+    cursor: crosshair;
+  }*/
 path.link {
   fill: none;
   stroke: #666;
@@ -90,3 +114,15 @@ text.id {
 .room-menu-item text {
   stroke: none;
   fill: #000; }
+
+#num-rooms {
+  font-size: 14px;
+  font-weight: bold; }
+
+#reset-button rect {
+  fill: #3c5abe;
+  cursor: pointer; }
+
+#reset-button text {
+  fill: #fff;
+  text-anchor: middle; }
