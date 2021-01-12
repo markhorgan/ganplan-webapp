@@ -41,7 +41,7 @@ def generate_floorplans(nodes, edges, num_variations=4, use_gpu=False):
     latent_dim = 128
 
     generator = Generator()
-    checkpoint = 'exp_demo_D_500000.pth'
+    checkpoint = '../exp_demo_D_500000.pth'
     processor_type = 'gpu' if use_gpu else 'cpu'
     generator.load_state_dict(torch.load(
         checkpoint, map_location=torch.device(processor_type)))

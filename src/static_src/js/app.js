@@ -121,7 +121,13 @@ class App extends Component {
     render() {
         return (
             <div>
-                <h1>Gan Plan</h1>
+                <header>
+                    <h1>Gan Plan</h1>
+                    <h2>Generates floorplans from a room graph using a Generative Adversarial Network trained on real floorplans.</h2>
+                    <p>Click on the circles to the left to add rooms and then drag from one circle to another to link them together. To remove a room or link, click on it and then press the Delete key.</p>
+                    <p>Press 'g' to generate a random set of rooms.</p>
+                    <p>A minimum of 10 rooms is required.</p>
+                </header>
                 <GraphEditor height="450" nodes={this.nodes} setNodesLength={this.setNodesLength} links={this.links} reset={this.reset}/>
                 <div className="button-outer">
                     <button className="button" onClick={this.generateFloorplans} disabled={this.state.nodesLength < 10}>Generate Floorplans</button>

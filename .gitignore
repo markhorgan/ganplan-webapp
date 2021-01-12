@@ -3,6 +3,7 @@ output/*
 
 node_modules
 .idea
+env
 
 .cache
 .vscode
@@ -13,3 +14,6 @@ src/temp/*
 !src/temp/.gitkeep
 src/static/selected/*
 !src/static/selected/.gitkeep
+exp_demo_D_500000.pth
+ganplan.ini
+__pycache__/
