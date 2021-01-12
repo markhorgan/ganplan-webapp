@@ -6,19 +6,22 @@ This is a web implmentation of [HouseGan](https://github.com/ennauata/housegan) 
 
 ## Setup
 
-Requires Python 3.8 or greater and Node to be installed.
+Requires Python 3.8 or greater.
 
-### Setting up a virtual environment in Python
-
-    python3 -m venv env
-    source env/scripts/activate
-    pip install -r requirements.txt
-   
 ### Download the dataset
 
 Download the dataset from [here](https://www.dropbox.com/sh/p707nojabzf0nhi/AAB4UPwW0EgHhbQuHyq60tCKa?dl=0) and place `exp_demo_D_500000.pth` (the pre-trainined model) in the root of the project.
 
-## Start Server
+### Setup up a virtual environment in Python
+
+    python3 -m venv env
+    source env/scripts/activate
+    
+### Install the Python packages:
+
+    pip3 install -r requirements.txt
+
+### Start the server
 
     cd src
     python3 app.py
