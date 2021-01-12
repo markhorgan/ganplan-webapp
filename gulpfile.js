@@ -1,7 +1,5 @@
 const gulp = require('gulp');
 const config = require('./gulp.json');
-const livereload = require('gulp-livereload');
-const tinyLr = require('tiny-lr');
 const sass = require('gulp-sass');
 sass.compiler = require('node-sass');
 const browserSync = require('browser-sync').create();

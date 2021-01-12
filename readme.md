@@ -33,7 +33,3 @@ Requires Python 3 and Node to be installed.
 ## To build JS and CSS
 
     gulp build
-
-While developing run the following and the browser should update when you edit JS or SCSS:
-
-    gulp watch
