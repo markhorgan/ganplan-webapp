@@ -6,7 +6,7 @@ This is a web implmentation of [HouseGan](https://github.com/ennauata/housegan) 
 
 ## Setup
 
-Requires Python 3.8 or greater.
+Requires Python 3.7 or greater.
 
 ### Download the dataset
 
@@ -15,7 +15,7 @@ Download the dataset from [here](https://www.dropbox.com/sh/p707nojabzf0nhi/AAB4
 ### Setup up a virtual environment in Python
 
     python3 -m venv env
-    source env/scripts/activate
+    source env/bin/activate
     
 ### Install the Python packages:
 
