@@ -41,7 +41,7 @@ def generate_floorplans(nodes, edges, num_variations=4, use_gpu=False):
     latent_dim = 128
 
     generator = Generator()
-    checkpoint = '../exp_demo_D_500000.pth'
+    checkpoint = 'exp_demo_D_500000.pth'
     processor_type = 'gpu' if use_gpu else 'cpu'
     generator.load_state_dict(torch.load(
         checkpoint, map_location=torch.device(processor_type)))
@@ -117,9 +117,9 @@ def generate_rhino_file(bounding_boxes, nodes, index, size=300):
             roomObj['roomColor'] = colorDict[room_name]
             roomObj['rectangle'] = (((x0 * size), (y0 * size)) , ((x1 * size),(y1 * size)))
             d['rooms'].append(roomObj)
-            
+
             print(f'  {room_name}: (({x0 * size}, {y0 * size}), ({x1 * size}, {y1 * size}))')
-    
+
     return d
 
 
